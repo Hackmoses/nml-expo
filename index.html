@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nerves + Muscles 101 | Neuro-Muscular Labs</title>
+<meta name="description" content="A quick, student-friendly guide to nerves, muscles, the neuromuscular junction, and neuromuscular diseases, from Neuro-Muscular Labs at the University of Missouri.">
+<meta property="og:title" content="Nerves + Muscles 101">
+<meta property="og:description" content="How your body moves, what goes wrong in neuromuscular diseases, and what our lab studies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14182B; --muted:#45425C; --bg:#FFFFFF; --soft:#F6F7FB;
+  --blue:#1C6DD0; --blue-soft:#EAF2FD; --gold:#C98A00; --gold-soft:#FFF4D6;
+  --red:#C2255C; --red-soft:#FDEBF1; --teal:#0F8A7E; --teal-soft:#E3F5F2;
+  --orange:#D9480F; --orange-soft:#FFF0E6; --purple:#5B3FD1; --purple-soft:#EFEBFF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,-apple-system,sans-serif;font-weight:700;line-height:1.55;-webkit-text-size-adjust:100%}
+a{color:var(--blue)}
+img,svg{max-width:100%}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px}
+h1,h2,h3{font-family:'Fredoka',system-ui,sans-serif;line-height:1.1;margin:0}
+h2{font-size:clamp(28px,7vw,40px)}
+p{margin:0}
+
+.hero{background:var(--ink);color:#fff;padding:40px 0 34px;text-align:center}
+.hero .tag{display:inline-block;font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#FFD27A;margin-bottom:12px}
+.hero h1{font-size:clamp(40px,11vw,64px);font-weight:700}
+.hero h1 span{color:#7CB8FF}
+.hero p{margin:14px auto 0;max-width:520px;font-size:18px;color:#DCE2F5}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
+.chips a{color:#fff;text-decoration:none;background:#262B45;border-radius:999px;padding:10px 14px;font-size:14px;font-weight:800;min-height:44px;display:inline-flex;align-items:center}
+.chips a:hover{background:#343a5c}
+
+section{padding:40px 0 8px}
+.step{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;margin-bottom:12px}
+.lead{font-size:18px;color:var(--muted);margin-top:10px}
+.figure{margin:20px 0 0;border-radius:22px;padding:14px;background:var(--soft)}
+.figure svg{display:block;width:100%;height:auto}
+.note{margin-top:14px;border-radius:18px;padding:14px 16px;font-size:16px}
+.note b{font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;display:block;margin-bottom:2px}
+
+.cards{display:grid;gap:12px;margin-top:18px}
+@media (min-width:600px){.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{border-radius:18px;padding:16px;border:2px solid transparent}
+.card .where{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.card h3{font-size:22px;margin:4px 0 6px}
+.card p{font-size:15px;color:var(--muted)}
+.card svg{width:40px;height:40px;margin-bottom:6px}
+
+.quiz{background:var(--soft);border-radius:22px;padding:18px;margin-top:18px}
+.q{padding:12px 0;border-bottom:2px dashed #DDE1EE}
+.q:last-child{border-bottom:0}
+.q h3{font-size:20px;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font:inherit;font-size:15px;font-weight:800;min-height:44px;padding:8px 14px;border-radius:12px;border:2px solid #C9CEE0;background:#fff;color:var(--ink);cursor:pointer}
+.opts button:hover{border-color:var(--blue)}
+.opts button.right{background:#E3F6E6;border-color:#2F9E44;color:#1B5E2A}
+.opts button.wrong{background:#FFE3E3;border-color:#C92A2A;color:#8A1C1C}
+.fb{margin-top:8px;font-size:15px;color:var(--muted);min-height:1.2em}
+
+.cta{margin:44px 0 0;background:var(--blue);color:#fff;border-radius:26px;padding:28px 22px;text-align:center}
+.cta h2{font-size:clamp(28px,7vw,38px)}
+.cta p{margin-top:10px;font-size:17px;color:#E4EEFF}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;min-height:56px;padding:14px 26px;border-radius:999px;background:#fff;color:var(--blue);text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:21px}
+.btn:hover{background:#EAF2FD}
+footer{padding:26px 0 40px;text-align:center;font-size:13px;color:#5A5F7A}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<div class="wrap">
+<div class="tag">Neuro-Muscular Labs · University of Missouri</div>
+<h1>Nerves + Muscles <span>101</span></h1>
+<p>How your body moves, what goes wrong in neuromuscular diseases, and what our scientists do about it. Takes about 3 minutes!</p>
+<nav class="chips" aria-label="Jump to a section">
+<a href="#circuit">The circuit</a><a href="#nerves">Nerves</a><a href="#muscles">Muscles</a><a href="#junction">The junction</a><a href="#diseases">Diseases</a><a href="#lab">Our lab</a><a href="#quiz">Quiz</a>
+</nav>
+</div>
+</header>
+
+<main class="wrap">
+
+<section id="circuit">
+<div class="step" style="background:var(--blue)">1</div>
+<h2>Your body is a circuit</h2>
+<p class="lead">Every time you wave, kick, or blink, an electrical signal travels from your brain to a muscle. It works a lot like electricity lighting up a bulb.</p>
+<div class="figure"><svg viewBox="0 0 360 420" role="img" aria-label="A body showing the brain, spinal cord, a leg nerve, the neuromuscular junction, and a leg muscle, labeled as parts of a circuit." style="font-family:Nunito,sans-serif">
+<defs>
+<g id="kOut"><path d="M124 160L100 320" stroke-width="46"></path><path d="M100 320L84 455" stroke-width="38"></path><path d="M168 420L162 590" stroke-width="66"></path><path d="M162 590L166 740" stroke-width="48"></path></g>
+<g id="kFill"><path d="M124 160L100 320" stroke-width="40"></path><path d="M100 320L84 455" stroke-width="32"></path><path d="M168 420L162 590" stroke-width="60"></path><path d="M162 590L166 740" stroke-width="42"></path></g>
+<g id="kEnds"><ellipse cx="82" cy="490" rx="15" ry="26"></ellipse><ellipse cx="164" cy="760" rx="24" ry="11"></ellipse></g>
+<g id="kMus">
+<path d="M136 142C118 146 106 160 104 186C110 202 122 208 134 200C136 180 142 160 152 146Z" fill="#D64A5C"></path>
+<path d="M198 150C176 148 152 150 140 160C136 182 144 206 170 212C186 214 196 210 198 206Z" fill="#E05A6C"></path>
+<ellipse cx="108" cy="254" rx="16" ry="46" transform="rotate(8 108 254)" fill="#D64A5C"></ellipse>
+<ellipse cx="93" cy="382" rx="13" ry="50" transform="rotate(7 93 382)" fill="#E06B7A"></ellipse>
+<rect x="176" y="222" width="21" height="30" rx="8" fill="#D64A5C"></rect>
+<rect x="176" y="256" width="21" height="30" rx="8" fill="#D64A5C"></rect>
+<rect x="176" y="290" width="21" height="30" rx="8" fill="#D64A5C"></rect>
+<rect x="176" y="324" width="21" height="44" rx="9" fill="#D64A5C"></rect>
+<path d="M170 222C150 232 138 262 138 300C140 332 150 362 168 384L172 300Z" fill="#E06B7A"></path>
+<path d="M148 432C138 472 136 532 146 580C154 596 172 596 180 580C188 532 190 472 182 432Z" fill="#D64A5C"></path>
+<path d="M152 612C148 652 152 702 158 726C166 726 170 702 170 652C168 622 162 610 152 612Z" fill="#E06B7A"></path>
+</g>
+<g id="kNrv"><path d="M200 132C176 134 148 142 132 160L108 316L92 452L84 480"></path><path d="M200 410C186 418 176 426 172 436L166 590L168 744"></path><path d="M112 250L98 232M100 372L86 362M170 520L154 506M168 660L182 648M130 166L150 196"></path></g>
+</defs>
+<g transform="translate(-12 8) scale(0.52)">
+<g stroke-linecap="round" fill="none" stroke="#D9A07A"><use href="#kOut"></use><use href="#kOut" transform="translate(400 0) scale(-1 1)"></use></g>
+<rect x="183" y="100" width="34" height="38" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></rect>
+<path d="M200 128C176 128 150 132 132 140C114 147 108 160 110 180L118 300C120 340 126 372 130 404C134 428 150 446 172 446L228 446C250 446 266 428 270 404C274 372 280 340 282 300L290 180C292 160 286 147 268 140C250 132 224 128 200 128Z" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></path>
+<ellipse cx="200" cy="64" rx="38" ry="46" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></ellipse>
+<g stroke-linecap="round" fill="none" stroke="#F5D0B0"><use href="#kFill"></use><use href="#kFill" transform="translate(400 0) scale(-1 1)"></use></g>
+<g fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"><use href="#kEnds"></use><use href="#kEnds" transform="translate(400 0) scale(-1 1)"></use></g>
+<g stroke="#A8283C" stroke-width="2" opacity="0.9"><use href="#kMus"></use><use href="#kMus" transform="translate(400 0) scale(-1 1)"></use></g>
+<ellipse cx="200" cy="50" rx="28" ry="24" fill="#F7A6B0" stroke="#C8363F" stroke-width="2.5"></ellipse>
+<path d="M200 28V74M182 40c6 4 6 10 0 14M218 40c-6 4-6 10 0 14" stroke="#C8363F" stroke-width="2" fill="none" stroke-linecap="round"></path>
+<path d="M200 74V412" stroke="#8A6500" stroke-width="10" stroke-linecap="round"></path>
+<path d="M200 74V412" stroke="#FFC93C" stroke-width="6" stroke-linecap="round"></path>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#8A6500" stroke-width="6"><use href="#kNrv"></use><use href="#kNrv" transform="translate(400 0) scale(-1 1)"></use></g>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#FFC93C" stroke-width="3"><use href="#kNrv"></use><use href="#kNrv" transform="translate(400 0) scale(-1 1)"></use></g>
+</g>
+<g fill="none" stroke-width="2.5">
+<circle cx="92" cy="34" r="16" stroke="#1C6DD0"></circle>
+<circle cx="92" cy="138" r="9" stroke="#1C6DD0"></circle>
+<circle cx="108" cy="268" r="9" stroke="#C98A00"></circle>
+<circle cx="101" cy="345" r="7" stroke="#0F8A7E"></circle>
+<circle cx="113" cy="368" r="11" stroke="#C2255C"></circle>
+</g>
+<g stroke="#9AA0B8" stroke-width="1.5" stroke-dasharray="4 4" fill="none">
+<path d="M108 34H184"></path><path d="M101 138H184"></path><path d="M117 268H184"></path><path d="M108 343L184 318"></path><path d="M124 370L184 388"></path>
+</g>
+<g font-size="17" font-weight="900">
+<text x="190" y="32" fill="#1557A8">Brain</text><text x="190" y="50" font-size="13" font-weight="700" fill="#45425C">the boss, sends the signal</text>
+<text x="190" y="136" fill="#1557A8">Spinal cord</text><text x="190" y="154" font-size="13" font-weight="700" fill="#45425C">the highway</text>
+<text x="190" y="266" fill="#8A6500">Nerve</text><text x="190" y="284" font-size="13" font-weight="700" fill="#45425C">the wire</text>
+<text x="190" y="316" fill="#0B6E64">Junction</text><text x="190" y="334" font-size="13" font-weight="700" fill="#45425C">the handoff</text>
+<text x="190" y="386" fill="#A61E4D">Muscle</text><text x="190" y="404" font-size="13" font-weight="700" fill="#45425C">the mover</text>
+</g>
+</svg>
+</div>
+</section>
+
+<section id="nerves">
+<div class="step" style="background:var(--orange)">2</div>
+<h2>Nerves are the wires</h2>
+<p class="lead">A nerve cell has a long arm called an <b>axon</b>. Many axons are wrapped in <b>myelin</b>, a fatty coating that works like the plastic around a wire. Myelin lets the signal jump from gap to gap, super fast.</p>
+<div class="figure"><svg viewBox="0 0 360 300" role="img" aria-label="Two nerve cells. The healthy one is wrapped in myelin and the signal jumps quickly from gap to gap. In the damaged one, myelin is missing, so the signal slows and fades." style="font-family:Nunito,sans-serif">
+<text x="0" y="18" font-family="Fredoka,sans-serif" font-size="18" font-weight="700" fill="#2F7D32">Healthy nerve</text>
+<path d="M24 86l-16-18M24 86l-18 4M24 86l-12 20M34 76l-4-20" stroke="#F2B544" stroke-width="4" stroke-linecap="round"></path>
+<circle cx="32" cy="86" r="17" fill="#FFD27A" stroke="#C98A00" stroke-width="2.5"></circle><circle cx="32" cy="86" r="6" fill="#C98A00"></circle>
+<path d="M49 86H310" stroke="#F2B544" stroke-width="6" stroke-linecap="round"></path>
+<path d="M310 86l16-14M310 86h18M310 86l16 14" stroke="#F2B544" stroke-width="4" stroke-linecap="round"></path>
+<rect x="330" y="62" width="16" height="48" rx="6" fill="#E06B7A" stroke="#A8283C" stroke-width="2"></rect>
+<g fill="#FFD9BD" stroke="#D9480F" stroke-width="2.5"><rect x="62" y="74" width="66" height="24" rx="11"></rect><rect x="140" y="74" width="66" height="24" rx="11"></rect><rect x="218" y="74" width="66" height="24" rx="11"></rect></g>
+<g fill="none" stroke="#2F7D32" stroke-width="3.5" stroke-linecap="round"><path d="M56 66C76 40 114 40 134 66"></path><path d="M134 66c20-26 58-26 78 0"></path><path d="M212 66c20-26 58-26 78 0"></path></g>
+<path d="M282 58l10 8-12 3" fill="none" stroke="#2F7D32" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<g font-size="13" font-weight="800">
+<text x="10" y="128" fill="#14182B">Cell body</text>
+<text x="96" y="128" fill="#B33A0B">Myelin</text><path d="M110 116L100 100" stroke="#14182B" stroke-width="1.2"></path>
+<text x="180" y="128" fill="#14182B">Gap</text><path d="M188 116L212 92" stroke="#14182B" stroke-width="1.2"></path>
+<text x="300" y="128" fill="#A8283C">Muscle</text>
+<text x="118" y="34" fill="#2F7D32">Signal jumps, fast!</text>
+</g>
+
+<text x="0" y="176" font-family="Fredoka,sans-serif" font-size="18" font-weight="700" fill="#B33A0B">Damaged myelin (like in CMT)</text>
+<path d="M24 236l-16-18M24 236l-18 4M24 236l-12 20M34 226l-4-20" stroke="#F2B544" stroke-width="4" stroke-linecap="round"></path>
+<circle cx="32" cy="236" r="17" fill="#FFD27A" stroke="#C98A00" stroke-width="2.5"></circle><circle cx="32" cy="236" r="6" fill="#C98A00"></circle>
+<path d="M49 236H310" stroke="#F2B544" stroke-width="6" stroke-linecap="round"></path>
+<path d="M310 236l16-14M310 236h18M310 236l16 14" stroke="#F2B544" stroke-width="4" stroke-linecap="round"></path>
+<rect x="330" y="212" width="16" height="48" rx="6" fill="#F0A8B3" stroke="#A8283C" stroke-width="2"></rect>
+<g fill="#FFD9BD" stroke="#D9480F" stroke-width="2.5"><rect x="62" y="224" width="66" height="24" rx="11"></rect><rect x="150" y="229" width="26" height="14" rx="7"></rect><path d="M230 226h34l-5 6 6 5-5 9h-30a10 10 0 0 1 0-20z"></path></g>
+<g fill="none" stroke="#B33A0B" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 8"><path d="M56 216C76 190 114 190 134 216"></path><path d="M134 216c14-14 30-14 44 0"></path></g>
+<path d="M190 202l14 14M204 202l-14 14" stroke="#B33A0B" stroke-width="3.5" stroke-linecap="round"></path>
+<text x="212" y="214" font-size="13" font-weight="800" fill="#B33A0B">Signal fades</text>
+<text x="20" y="288" font-size="13" font-weight="800" fill="#45425C">Muscles get weaker signals, so they get weak too.</text>
+</svg>
+</div>
+<div class="note" style="background:var(--orange-soft)"><b style="color:var(--orange)">Wow fact</b>Some nerve cells stretch from your spine to your toes. That's up to 1 meter long, in a single cell!</div>
+</section>
+
+<section id="muscles">
+<div class="step" style="background:var(--red)">3</div>
+<h2>Muscles do the work</h2>
+<p class="lead">You have more than 600 muscles. They can only <b>pull</b>, never push, so they work in pairs. To bend your arm, the biceps squeezes. To straighten it, the triceps squeezes.</p>
+<div class="figure"><svg viewBox="0 0 560 420" role="img" aria-label="Side view of a bent arm showing the humerus and forearm bones, the biceps on the front and triceps on the back, and a motor nerve reaching the biceps" style="font-family:Nunito,sans-serif">
+<path d="M135 30C128 140 128 250 136 330Q140 386 196 386L470 378Q512 376 512 340Q512 304 470 302L272 300C282 220 276 120 252 30Z" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></path>
+<path d="M188 40L192 320" stroke="#CBB894" stroke-width="28" stroke-linecap="round"></path>
+<path d="M188 40L192 320" stroke="#F4EBD9" stroke-width="22" stroke-linecap="round"></path>
+<g stroke-linecap="round"><path d="M200 326L460 320M200 350L460 346" stroke="#CBB894" stroke-width="16"></path><path d="M200 326L460 320M200 350L460 346" stroke="#F4EBD9" stroke-width="11"></path></g>
+<circle cx="192" cy="334" r="18" fill="#F4EBD9" stroke="#CBB894" stroke-width="3"></circle>
+<path d="M178 52C120 104 120 250 152 336L172 338C170 260 172 140 188 58Z" fill="#E06B7A" stroke="#A8283C" stroke-width="2.5"></path>
+<path d="M200 56C254 100 268 226 236 298L218 298C214 226 204 128 194 62Z" fill="#D64A5C" stroke="#A8283C" stroke-width="2.5"></path>
+<path d="M150 104C140 170 142 250 158 320M166 92C158 170 158 250 166 328" stroke="#B83246" stroke-width="1.5" fill="none" opacity="0.6"></path>
+<path d="M212 90C234 150 238 220 228 286M204 90C222 150 226 220 220 290" stroke="#B83246" stroke-width="1.5" fill="none" opacity="0.6"></path>
+<path d="M226 298L268 326" stroke="#E8DCC6" stroke-width="7" stroke-linecap="round"></path>
+<path d="M160 338L176 356" stroke="#E8DCC6" stroke-width="7" stroke-linecap="round"></path>
+<circle cx="490" cy="340" r="36" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></circle>
+<path d="M250 8C250 60 246 120 236 168" stroke="#F2B705" stroke-width="5" fill="none" stroke-linecap="round"></path>
+<circle cx="236" cy="172" r="7" fill="#F2B705" stroke="#8A6500" stroke-width="2"></circle>
+<path d="M430 270C420 210 380 170 330 160" stroke="#2F7D32" stroke-width="5" fill="none" stroke-linecap="round"></path>
+<path d="M342 148L326 160L344 172" stroke="#2F7D32" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+<g font-size="18" font-weight="800">
+<text x="318" y="210" fill="#A8283C">Biceps</text><path d="M314 204L246 196" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="8" y="196" fill="#A8283C">Triceps</text><path d="M78 192L136 196" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="268" y="40" fill="#8A6500">Motor nerve</text>
+<text x="8" y="80">Bone</text><path d="M52 76L176 76" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="300" y="276">Tendon</text><path d="M296 278L254 312" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="12" y="372">Elbow</text><path d="M64 366L172 340" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="440" y="252" fill="#2F7D32">Bend!</text>
+</g>
+</svg></div>
+</section>
+
+<section id="junction">
+<div class="step" style="background:var(--teal)">4</div>
+<h2>The neuromuscular junction</h2>
+<p class="lead">This is the spot where a nerve hands its message to a muscle. They don't actually touch. There's a tiny gap between them.</p>
+<div class="figure"><svg viewBox="226 296 488 304" role="img" aria-label="A body with a zoom circle on the arm. The first zoom shows a nerve branching onto muscle fibers. The second zoom shows a nerve ending releasing acetylcholine across a small gap onto receptors on the muscle fiber." style="font-family:Nunito,sans-serif">
+<defs>
+<g id="bOut"><path d="M124 160L100 320" stroke-width="46"></path><path d="M100 320L84 455" stroke-width="38"></path><path d="M168 420L162 590" stroke-width="66"></path><path d="M162 590L166 740" stroke-width="48"></path></g>
+<g id="bFill"><path d="M124 160L100 320" stroke-width="40"></path><path d="M100 320L84 455" stroke-width="32"></path><path d="M168 420L162 590" stroke-width="60"></path><path d="M162 590L166 740" stroke-width="42"></path></g>
+<g id="bEnds"><ellipse cx="82" cy="490" rx="15" ry="26"></ellipse><ellipse cx="164" cy="760" rx="24" ry="11"></ellipse></g>
+<g id="bMus">
+<path d="M136 142C118 146 106 160 104 186C110 202 122 208 134 200C136 180 142 160 152 146Z" fill="#D64A5C"></path>
+<path d="M198 150C176 148 152 150 140 160C136 182 144 206 170 212C186 214 196 210 198 206Z" fill="#E05A6C"></path>
+<ellipse cx="108" cy="254" rx="16" ry="46" transform="rotate(8 108 254)" fill="#D64A5C"></ellipse>
+<ellipse cx="93" cy="382" rx="13" ry="50" transform="rotate(7 93 382)" fill="#E06B7A"></ellipse>
+<rect x="176" y="222" width="21" height="30" rx="8" fill="#D64A5C"></rect>
+<rect x="176" y="256" width="21" height="30" rx="8" fill="#D64A5C"></rect>
+<rect x="176" y="290" width="21" height="30" rx="8" fill="#D64A5C"></rect>
+<rect x="176" y="324" width="21" height="44" rx="9" fill="#D64A5C"></rect>
+<path d="M170 222C150 232 138 262 138 300C140 332 150 362 168 384L172 300Z" fill="#E06B7A"></path>
+<path d="M148 432C138 472 136 532 146 580C154 596 172 596 180 580C188 532 190 472 182 432Z" fill="#D64A5C"></path>
+<path d="M152 612C148 652 152 702 158 726C166 726 170 702 170 652C168 622 162 610 152 612Z" fill="#E06B7A"></path>
+</g>
+<g id="bNrv"><path d="M200 132C176 134 148 142 132 160L108 316L92 452L84 480"></path><path d="M200 410C186 418 176 426 172 436L166 590L168 744"></path><path d="M112 250L98 232M100 372L86 362M170 520L154 506M168 660L182 648M130 166L150 196"></path></g>
+<clipPath id="zoom1"><circle cx="330" cy="150" r="115"></circle></clipPath>
+<clipPath id="zoom2"><rect x="230" y="300" width="480" height="296" rx="22"></rect></clipPath>
+</defs>
+
+<g transform="translate(-20 10) scale(0.6)">
+<g stroke-linecap="round" fill="none" stroke="#D9A07A"><use href="#bOut"></use><use href="#bOut" transform="translate(400 0) scale(-1 1)"></use></g>
+<rect x="183" y="100" width="34" height="38" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></rect>
+<path d="M200 128C176 128 150 132 132 140C114 147 108 160 110 180L118 300C120 340 126 372 130 404C134 428 150 446 172 446L228 446C250 446 266 428 270 404C274 372 280 340 282 300L290 180C292 160 286 147 268 140C250 132 224 128 200 128Z" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></path>
+<ellipse cx="200" cy="64" rx="38" ry="46" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"></ellipse>
+<g stroke-linecap="round" fill="none" stroke="#F5D0B0"><use href="#bFill"></use><use href="#bFill" transform="translate(400 0) scale(-1 1)"></use></g>
+<g fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"><use href="#bEnds"></use><use href="#bEnds" transform="translate(400 0) scale(-1 1)"></use></g>
+<g stroke="#A8283C" stroke-width="2" opacity="0.9"><use href="#bMus"></use><use href="#bMus" transform="translate(400 0) scale(-1 1)"></use></g>
+<ellipse cx="200" cy="50" rx="28" ry="24" fill="#F7A6B0" stroke="#C8363F" stroke-width="2.5"></ellipse>
+<path d="M200 74V412" stroke="#8A6500" stroke-width="10" stroke-linecap="round"></path>
+<path d="M200 74V412" stroke="#FFC93C" stroke-width="6" stroke-linecap="round"></path>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#8A6500" stroke-width="6"><use href="#bNrv"></use><use href="#bNrv" transform="translate(400 0) scale(-1 1)"></use></g>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#FFC93C" stroke-width="3"><use href="#bNrv"></use><use href="#bNrv" transform="translate(400 0) scale(-1 1)"></use></g>
+</g>
+
+<g stroke="#5A5A68" stroke-width="1.5" stroke-dasharray="5 4" fill="none">
+<path d="M155 142L310 36"></path><path d="M155 183L310 264"></path>
+<path d="M352 196L240 306"></path><path d="M368 196L700 306"></path>
+</g>
+<circle cx="155" cy="162" r="21" fill="none" stroke="#E8611A" stroke-width="3.5"></circle>
+
+<circle cx="330" cy="150" r="115" fill="#F4A9B5"></circle>
+<g clip-path="url(#zoom1)">
+<g fill="#EE98A6" stroke="#C95A6E" stroke-width="2.5">
+<rect x="200" y="50" width="270" height="34" rx="17"></rect><rect x="200" y="90" width="270" height="34" rx="17"></rect><rect x="200" y="130" width="270" height="34" rx="17"></rect><rect x="200" y="170" width="270" height="34" rx="17"></rect><rect x="200" y="210" width="270" height="34" rx="17"></rect>
+</g>
+<g stroke="#D97B8C" stroke-width="1.5"><path d="M230 52v30M260 52v30M290 52v30M320 52v30M350 52v30M380 52v30M410 52v30M230 92v30M260 92v30M290 92v30M320 92v30M350 92v30M380 92v30M410 92v30M230 132v30M260 132v30M320 132v30M350 132v30M380 132v30M410 132v30M230 172v30M260 172v30M290 172v30M320 172v30M380 172v30M410 172v30M230 212v30M260 212v30M290 212v30M320 212v30M350 212v30M380 212v30M410 212v30"></path></g>
+<g fill="none" stroke-linecap="round"><path d="M210 40C260 60 300 90 330 120M330 120C320 130 306 138 300 145M330 120C345 145 355 170 360 183M330 120C352 114 374 108 388 106" stroke="#8A6500" stroke-width="10"></path><path d="M210 40C260 60 300 90 330 120M330 120C320 130 306 138 300 145M330 120C345 145 355 170 360 183M330 120C352 114 374 108 388 106" stroke="#FFC93C" stroke-width="6"></path></g>
+<g fill="#F2B705" stroke="#8A6500" stroke-width="2"><ellipse cx="300" cy="147" rx="12" ry="6"></ellipse><ellipse cx="360" cy="187" rx="12" ry="6"></ellipse><ellipse cx="390" cy="107" rx="12" ry="6"></ellipse></g>
+</g>
+<circle cx="330" cy="150" r="115" fill="none" stroke="#E8611A" stroke-width="4"></circle>
+<circle cx="360" cy="187" r="15" fill="none" stroke="#1F3A68" stroke-width="3"></circle>
+<g font-size="17" font-weight="800">
+<text x="470" y="64" fill="#8A6500">Motor nerve</text><path d="M466 60L392 74" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="470" y="150" fill="#A13A50">Muscle fibers</text><path d="M466 146L436 146" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="470" y="230" fill="#1F3A68">One junction</text><path d="M466 226L374 192" stroke="#1E1E28" stroke-width="1.5"></path>
+</g>
+
+<rect x="230" y="300" width="480" height="296" rx="22" fill="#FFF8F2"></rect>
+<g clip-path="url(#zoom2)">
+<path d="M462 300V322M478 300V322" stroke="#8A6500" stroke-width="3"></path>
+<rect x="462" y="296" width="16" height="30" fill="#FFE08A"></rect>
+<path d="M440 320C384 324 356 352 356 390C356 410 366 422 382 428H558C574 422 584 410 584 390C584 352 556 324 500 320Z" fill="#FFE08A" stroke="#C98A00" stroke-width="3"></path>
+<g fill="#FFFFFF" stroke="#C98A00" stroke-width="2.5"><circle cx="418" cy="372" r="15"></circle><circle cx="470" cy="356" r="15"></circle><circle cx="522" cy="372" r="15"></circle><circle cx="444" cy="404" r="13"></circle><circle cx="498" cy="404" r="13"></circle></g>
+<g fill="#E8611A"><circle cx="413" cy="368" r="3.5"></circle><circle cx="422" cy="376" r="3.5"></circle><circle cx="465" cy="352" r="3.5"></circle><circle cx="474" cy="360" r="3.5"></circle><circle cx="517" cy="368" r="3.5"></circle><circle cx="526" cy="376" r="3.5"></circle><circle cx="440" cy="400" r="3"></circle><circle cx="494" cy="400" r="3"></circle>
+<circle cx="420" cy="440" r="4"></circle><circle cx="442" cy="452" r="4"></circle><circle cx="464" cy="438" r="4"></circle><circle cx="486" cy="454" r="4"></circle><circle cx="508" cy="442" r="4"></circle><circle cx="530" cy="452" r="4"></circle><circle cx="452" cy="462" r="3.5"></circle><circle cx="496" cy="464" r="3.5"></circle></g>
+<path d="M230 476H710V600H230Z" fill="#F4A9B5" stroke="#C95A6E" stroke-width="3"></path>
+<g stroke="#D97B8C" stroke-width="2.5"><path d="M262 486v100M298 486v100M334 486v100M370 486v100M570 486v100M606 486v100M642 486v100M678 486v100"></path></g>
+<g stroke="#1F3A68" stroke-width="3.5" stroke-linecap="round" fill="none">
+<path d="M400 476v-9M400 467l-5-6M400 467l5-6"></path><path d="M428 476v-9M428 467l-5-6M428 467l5-6"></path><path d="M456 476v-9M456 467l-5-6M456 467l5-6"></path><path d="M484 476v-9M484 467l-5-6M484 467l5-6"></path><path d="M512 476v-9M512 467l-5-6M512 467l5-6"></path><path d="M540 476v-9M540 467l-5-6M540 467l5-6"></path>
+</g>
+<g font-size="16" font-weight="800" fill="#1E1E28">
+<text x="246" y="340">Nerve ending</text><path d="M300 346L360 366" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="600" y="346" fill="#B8460B">Bubbles</text><text x="600" y="364" font-size="14" fill="#4A4A58">full of ACh</text><path d="M598 352L536 368" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="246" y="452">The gap</text><path d="M310 448L408 448" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="600" y="446" fill="#1F3A68">Receptors</text><path d="M598 450L548 464" stroke="#1E1E28" stroke-width="1.5"></path>
+<text x="470" y="548" text-anchor="middle" font-size="20">Muscle fiber</text>
+</g>
+</g>
+<rect x="230" y="300" width="480" height="296" rx="22" fill="none" stroke="#1F3A68" stroke-width="4"></rect>
+
+<g font-size="16" font-weight="800" fill="#1E1E28">
+<text x="10" y="528">Every muscle fiber</text>
+<text x="10" y="548">has its own junction.</text>
+<text x="10" y="576" font-size="14" fill="#4A4A58" font-weight="700">The gap is 1,000x</text>
+<text x="10" y="594" font-size="14" fill="#4A4A58" font-weight="700">thinner than a hair!</text>
+</g>
+</svg></div>
+<div class="cards two">
+<div class="card" style="background:var(--gold-soft)"><h3>1 · Signal arrives</h3><p>The electrical signal reaches the end of the nerve.</p></div>
+<div class="card" style="background:var(--orange-soft)"><h3>2 · Bubbles open</h3><p>Tiny bubbles release a chemical messenger called acetylcholine (ACh).</p></div>
+<div class="card" style="background:var(--blue-soft)"><h3>3 · Key in a lock</h3><p>ACh crosses the gap and fits into receptors on the muscle.</p></div>
+<div class="card" style="background:var(--red-soft)"><h3>4 · Squeeze!</h3><p>The muscle fiber contracts. The whole handoff takes about 1/1000 of a second.</p></div>
+</div>
+</section>
+
+<section id="diseases">
+<div class="step" style="background:var(--purple)">5</div>
+<h2>When the circuit breaks</h2>
+<p class="lead">A <b>neuromuscular disease</b> happens when part of this circuit stops working well. Muscles get weak or tired. Doctors sort these diseases by <b>where</b> the break is. None of them are contagious.</p>
+<div class="cards three">
+<div class="card" style="border-color:#F3D3BF;background:#fff">
+<div class="where" style="color:var(--orange)">The nerve</div>
+<h3>CMT and ALS</h3>
+<p><b>CMT</b> (Charcot-Marie-Tooth disease) damages nerves or their myelin, often in the feet and hands. In <b>ALS</b>, the nerve cells that control movement slowly stop working.</p>
+</div>
+<div class="card" style="border-color:#BFE3DC;background:#fff">
+<div class="where" style="color:var(--teal)">The junction</div>
+<h3>Myasthenia gravis</h3>
+<p>The body's immune system blocks the receptors, so the message can't get through. Muscles tire out fast.</p>
+</div>
+<div class="card" style="border-color:#F3C5D5;background:#fff">
+<div class="where" style="color:var(--red)">The muscle</div>
+<h3>Muscular dystrophy</h3>
+<p>Muscles are missing a protein they need to stay strong, so they slowly weaken over time.</p>
+</div>
+</div>
+</section>
+
+<section id="lab">
+<div class="step" style="background:var(--blue)">6</div>
+<h2>What our lab does</h2>
+<p class="lead">At <b>Neuro-Muscular Labs</b>, scientists and doctors at the University of Missouri work together to find out exactly where the circuit breaks, and how to fix it.</p>
+<div class="cards two">
+<div class="card" style="background:var(--blue-soft)">
+<svg viewBox="0 0 40 40" fill="none" stroke="#1557A8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6h8l-2 14h-4z"></path><path d="M18 20v4"></path><path d="M10 34h22"></path><path d="M26 18a8 8 0 0 1-2 14"></path><path d="M14 30h12"></path></svg>
+<h3>Glowing microscopes</h3><p>We light up nerves, myelin, and junctions in bright colors to see where things go wrong.</p>
+</div>
+<div class="card" style="background:var(--gold-soft)">
+<svg viewBox="0 0 40 40" fill="none" stroke="#8A6500" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 22h8l3-9 5 16 4-11 3 4h11"></path></svg>
+<h3>Measuring signals</h3><p>We test how fast and how strong nerve and muscle signals are, in the lab and in patients.</p>
+</div>
+<div class="card" style="background:var(--teal-soft)">
+<svg viewBox="0 0 40 40" fill="none" stroke="#0B6E64" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4c0 9 12 12 12 20s-12 9-12 12"></path><path d="M26 4c0 9-12 12-12 20s12 9 12 12"></path><path d="M16 10h8M15 30h10M17 20h6"></path></svg>
+<h3>Studying genes</h3><p>Many of these diseases run in families. We study the genes behind them, using models like mice.</p>
+</div>
+<div class="card" style="background:var(--red-soft)">
+<svg viewBox="0 0 40 40" fill="none" stroke="#A61E4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="15" width="28" height="12" rx="6" transform="rotate(-35 20 21)"></rect><path d="M16 13l8 12"></path></svg>
+<h3>New treatments</h3><p>We help test new medicines and gene therapies, moving discoveries from the lab bench to patients.</p>
+</div>
+</div>
+</section>
+
+<section id="quiz">
+<div class="step" style="background:var(--teal)">?</div>
+<h2>Quick quiz</h2>
+<p class="lead">Three questions. Tap an answer!</p>
+<div class="quiz">
+<div class="q" data-answer="b">
+<h3>1. What is myelin like?</h3>
+<div class="opts"><button type="button" data-v="a">A battery</button><button type="button" data-v="b">The plastic on a wire</button><button type="button" data-v="c">A light bulb</button></div>
+<p class="fb" aria-live="polite"></p>
+</div>
+<div class="q" data-answer="c">
+<h3>2. Where does a nerve pass its message to a muscle?</h3>
+<div class="opts"><button type="button" data-v="a">The spinal cord</button><button type="button" data-v="b">The bone</button><button type="button" data-v="c">The neuromuscular junction</button></div>
+<p class="fb" aria-live="polite"></p>
+</div>
+<div class="q" data-answer="a">
+<h3>3. Can you catch a neuromuscular disease from a friend?</h3>
+<div class="opts"><button type="button" data-v="a">No</button><button type="button" data-v="b">Yes</button></div>
+<p class="fb" aria-live="polite"></p>
+</div>
+</div>
+</section>
+
+<div class="cta">
+<h2>Want to know more?</h2>
+<p>Meet our scientists, see our latest discoveries, and find out how to get involved.</p>
+<a class="btn" href="https://www.n-mlabs.com/">Visit our lab website
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+
+</main>
+
+<footer>
+<div class="wrap">Made for the T.H.E. Expo (Tomorrow's Health Care Experts) by Neuro-Muscular Labs, Roy Blunt NextGen Precision Health, University of Missouri.</div>
+</footer>
+
+<script>
+document.querySelectorAll('.q').forEach(function(q){
+  var ans=q.getAttribute('data-answer'), fb=q.querySelector('.fb');
+  var msgs={'1':'Myelin insulates nerves so signals stay fast.','2':'The junction is the handoff spot, with a tiny gap in between.','3':'They are not contagious. Many are passed down in families.'};
+  var num=q.querySelector('h3').textContent.charAt(0);
+  q.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click',function(){
+      q.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+      if(b.getAttribute('data-v')===ans){b.classList.add('right');fb.textContent='Correct! '+msgs[num];}
+      else{b.classList.add('wrong');fb.textContent='Not quite. Try again!';}
+    });
+  });
+});
+</script>
+</body>
+</html>
