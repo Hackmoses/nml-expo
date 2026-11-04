@@ -52,6 +52,11 @@ section{padding:40px 0 8px}
 .card p{font-size:15px;color:var(--muted)}
 .card svg{width:40px;height:40px;margin-bottom:6px}
 
+.card.dz{background:#fff}
+.card .full{font-size:14px;font-weight:800;color:#5A5F7A;font-style:italic;margin:-2px 0 8px}
+.card .signs{margin-top:10px;padding-top:10px;border-top:2px dashed #E3E8F3;font-size:14px;color:var(--ink)}
+.card.dz p+p{margin-top:0}
+@media (min-width:600px){.cards.two .dz:last-child:nth-child(odd){grid-column:1/-1}}
 .quiz{background:var(--soft);border-radius:22px;padding:18px;margin-top:18px}
 .q{padding:12px 0;border-bottom:2px dashed #DDE1EE}
 .q:last-child{border-bottom:0}
@@ -323,22 +328,42 @@ footer{padding:26px 0 40px;text-align:center;font-size:13px;color:#5A5F7A}
 <section id="diseases">
 <div class="step" style="background:var(--purple)">5</div>
 <h2>When the circuit breaks</h2>
-<p class="lead">A <b>neuromuscular disease</b> happens when part of this circuit stops working well. Muscles get weak or tired. Doctors sort these diseases by <b>where</b> the break is. None of them are contagious.</p>
-<div class="cards three">
-<div class="card" style="border-color:#F3D3BF;background:#fff">
-<div class="where" style="color:var(--orange)">The nerve</div>
-<h3>CMT and ALS</h3>
-<p><b>CMT</b> (Charcot-Marie-Tooth disease) damages nerves or their myelin, often in the feet and hands. In <b>ALS</b>, the nerve cells that control movement slowly stop working.</p>
+<p class="lead">A <b>neuromuscular disease</b> happens when part of this circuit stops working well, so muscles get weak, tired, or hard to control. Doctors sort these diseases by <b>where</b> the break is, from the brain all the way down to the muscle. None of them are contagious.</p>
+<div class="cards two">
+<div class="card dz" style="border-color:#C9DCF7">
+<div class="where" style="color:var(--blue)">The brain's balance center</div>
+<h3>Ataxia</h3>
+<div class="full">From a Greek word meaning "without order"</div>
+<p>Ataxia means losing coordination. It usually happens when the <b>cerebellum</b>, the part of the brain that keeps your movements smooth and balanced, is damaged, or when the nerves that tell your brain where your body is stop working well. Some types run in families, like Friedreich's ataxia, which often starts in kids and teens.</p>
+<p class="signs">You might notice wobbly walking, poor balance, slurred speech, or shaky hands.</p>
 </div>
-<div class="card" style="border-color:#BFE3DC;background:#fff">
-<div class="where" style="color:var(--teal)">The junction</div>
+<div class="card dz" style="border-color:#C9DCF7">
+<div class="where" style="color:var(--blue)">Nerve cells in the brain and spinal cord</div>
+<h3>ALS</h3>
+<div class="full">Amyotrophic Lateral Sclerosis, also called Lou Gehrig's disease</div>
+<p>In ALS, the <b>motor neurons</b>, the nerve cells that send "move!" messages to muscles, slowly stop working and die. Without their messages, muscles get weaker over time. It usually starts in adults, and most cases do not run in families. There's no cure yet, but medicines can slow it down, and scientists are working hard on new ones.</p>
+<p class="signs">You might notice weak hands or legs, muscle twitching, and later trouble speaking or swallowing.</p>
+</div>
+<div class="card dz" style="border-color:#F3D3BF">
+<div class="where" style="color:var(--orange)">The nerves</div>
+<h3>CMT</h3>
+<div class="full">Charcot-Marie-Tooth disease, named after the three doctors who first described it in 1886</div>
+<p>CMT damages the nerves in your arms and legs, or their <b>myelin</b> coating, so signals arrive slow and weak. The longest nerves are hit first, so it usually starts in the feet and lower legs, then the hands. It's passed down in families and affects about 1 in 2,500 people. This is a big focus of our lab!</p>
+<p class="signs">You might notice high foot arches, weak ankles, tripping, or trouble with buttons.</p>
+</div>
+<div class="card dz" style="border-color:#BFE3DC">
+<div class="where" style="color:var(--teal)">The neuromuscular junction</div>
 <h3>Myasthenia gravis</h3>
-<p>The body's immune system blocks the receptors, so the message can't get through. Muscles tire out fast.</p>
+<div class="full">From Greek and Latin words meaning "serious muscle weakness"</div>
+<p>Here the nerve and muscle are both healthy, but the handoff fails. The body's own immune system makes antibodies that block the <b>receptors</b> on the muscle, so the chemical message can't get through. Muscles get tired quickly and get stronger again after rest. Good treatments help most people live active lives.</p>
+<p class="signs">You might notice droopy eyelids, double vision, or tired arms and jaw.</p>
 </div>
-<div class="card" style="border-color:#F3C5D5;background:#fff">
+<div class="card dz" style="border-color:#F3C5D5">
 <div class="where" style="color:var(--red)">The muscle</div>
 <h3>Muscular dystrophy</h3>
-<p>Muscles are missing a protein they need to stay strong, so they slowly weaken over time.</p>
+<div class="full">"Dystrophy" means bad growth</div>
+<p>This is a group of diseases passed down in families. The muscles are missing a protein they need to stay strong, like <b>dystrophin</b>, so muscle fibers get damaged and slowly weaken. The most common kind in kids, Duchenne, mostly affects boys. Scientists, including our lab, are testing gene therapies to give muscles back the protein they're missing.</p>
+<p class="signs">You might notice trouble running, climbing stairs, or getting up from the floor.</p>
 </div>
 </div>
 </section>
