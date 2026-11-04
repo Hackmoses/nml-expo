@@ -62,6 +62,15 @@ section{padding:40px 0 8px}
 .facts .pill{flex-shrink:0;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;border-radius:8px;padding:3px 8px;color:var(--ink);margin-top:1px}
 .card.dz p+p{margin-top:0}
 @media (min-width:600px){.cards.two .dz:last-child:nth-child(odd){grid-column:1/-1}}
+.gamecta{margin-top:22px;text-align:center}
+.gamecta-lead{font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;color:#000080}
+.gamebtn{margin-top:10px;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:62px;padding:14px 26px;border-radius:999px;background:linear-gradient(#2191FB,#1560BD);color:#fff;text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;box-shadow:0 6px 0 #000080,0 0 0 0 rgba(33,145,251,.5);animation:gameZoom 1.6s ease-in-out infinite}
+.gamebtn-icon{display:inline-flex;width:38px;height:38px;border-radius:50%;background:#FFC93C;color:#000080;align-items:center;justify-content:center}
+.gamebtn:active{transform:translateY(4px)}
+.gamecta-sub{margin-top:12px;font-size:14px;color:var(--muted)}
+@keyframes gameZoom{0%,100%{transform:scale(1);box-shadow:0 6px 0 #000080,0 0 0 0 rgba(33,145,251,.45)}50%{transform:scale(1.07);box-shadow:0 6px 0 #000080,0 0 0 14px rgba(33,145,251,0)}}
+body.zooming main,body.zooming header,body.zooming footer{transition:transform .45s ease-in,opacity .45s ease-in;transform:scale(.6);opacity:0}
+@media (prefers-reduced-motion:reduce){.gamebtn{animation:none}body.zooming main,body.zooming header,body.zooming footer{transition:none}}
 .quiz{background:var(--soft);border-radius:22px;padding:18px;margin-top:18px}
 .q{padding:12px 0;border-bottom:2px dashed #DDE1EE}
 .q:last-child{border-bottom:0}
@@ -329,6 +338,14 @@ footer{padding:26px 0 40px;text-align:center;font-size:13px;color:#5A5F7A}
 <div class="card" style="background:var(--blue-soft)"><h3>3 · Key in a lock</h3><p>ACh crosses the gap and fits into receptors on the muscle.</p></div>
 <div class="card" style="background:var(--red-soft)"><h3>4 · Squeeze!</h3><p>The muscle fiber contracts. The whole handoff takes about 1/1000 of a second.</p></div>
 </div>
+<div class="gamecta">
+<p class="gamecta-lead">Think you've got it? Try it yourself!</p>
+<a class="gamebtn" href="game.html" id="gamebtn">
+<span class="gamebtn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
+Play a quick game
+<span aria-hidden="true">→</span></a>
+<p class="gamecta-sub">2 levels · about 1 minute</p>
+</div>
 </section>
 
 <section id="diseases">
@@ -462,6 +479,17 @@ document.querySelectorAll('.q').forEach(function(q){
     });
   });
 });
+
+var gb=document.getElementById('gamebtn');
+if(gb){gb.addEventListener('click',function(e){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();var r=gb.getBoundingClientRect();
+  var cx=r.left+r.width/2, cy=r.top+r.height/2;
+  document.querySelectorAll('main,header,footer').forEach(function(el){var b=el.getBoundingClientRect();el.style.transformOrigin=(cx-b.left)+'px '+(cy-b.top)+'px'});
+  document.body.classList.add('zooming');
+  setTimeout(function(){window.location.href=gb.href},430);
+});}
+window.addEventListener('pageshow',function(){document.body.classList.remove('zooming')});
 </script>
 </body>
 </html>

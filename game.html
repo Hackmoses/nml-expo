@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Make It Move! | Neuro-Muscular Labs</title>
+<meta name="description" content="A quick game about nerves, muscles, and the neuromuscular junction from Neuro-Muscular Labs.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14182B;--muted:#45425C;--bg:#F4F8FF;--blue:#1560BD;--sky:#2191FB;--navy:#000080;--line:#D6E7FB;--green:#2F9E44;--gold:#FFC93C;--pink:#C2255C}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,-apple-system,sans-serif;font-weight:700}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{max-width:440px;min-height:100dvh;margin:0 auto;padding:18px 16px 22px;display:flex;flex-direction:column;gap:12px}
+.screen{display:none;flex-direction:column;gap:12px;flex-grow:1;animation:enter .35s ease both}
+.screen.on{display:flex}
+@keyframes enter{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+.f{font-family:'Fredoka',system-ui,sans-serif}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lvl{background:var(--blue);color:#fff;font-size:13px;font-weight:900;padding:6px 12px;border-radius:999px}
+.dots{display:flex;gap:6px}.dots i{width:30px;height:8px;border-radius:4px;background:var(--line)}
+.dots i.now{background:var(--blue)}.dots i.done{background:var(--green)}
+.clock{font-family:'Fredoka',sans-serif;font-weight:700;font-size:19px;color:var(--blue);min-width:48px;text-align:right}
+.card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:12px 16px}
+.card h2{margin:0;font-family:'Fredoka',sans-serif;font-size:26px;color:var(--navy);line-height:1.1}
+.card p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.big{width:100%;min-height:60px;border:0;border-radius:999px;background:var(--blue);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:24px;box-shadow:0 6px 0 var(--navy);transition:transform .1s}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 var(--navy)}
+.ghost{width:100%;min-height:52px;border-radius:999px;border:2px solid var(--line);background:#fff;color:var(--blue);font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.msg{min-height:22px;font-size:15px;font-weight:800;text-align:center;color:var(--muted)}
+.msg.good{color:var(--green)}.msg.bad{color:#B42318}
+
+/* scene */
+.scene{position:relative;width:100%}
+.scene svg{display:block;width:100%;height:auto}
+.slot{position:absolute;transform:translate(-50%,-50%);min-width:74px;height:34px;padding:0 10px;border-radius:999px;border:2.5px dashed #8E97BD;background:rgba(255,255,255,.92);font-size:12px;font-weight:900;color:#5A5F7A;display:flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap}
+.slot.ready{border-color:var(--sky);color:var(--sky);box-shadow:0 0 0 6px rgba(33,145,251,.18);animation:pulse 1.2s ease-in-out infinite}
+.slot.filled{border-style:solid;color:#fff;cursor:default;animation:pop .35s ease}
+.slot.shake{animation:shake .4s}
+@keyframes pulse{50%{box-shadow:0 0 0 10px rgba(33,145,251,.08)}}
+@keyframes pop{0%{transform:translate(-50%,-50%) scale(.6)}70%{transform:translate(-50%,-50%) scale(1.12)}100%{transform:translate(-50%,-50%) scale(1)}}
+@keyframes shake{20%,60%{transform:translate(calc(-50% - 6px),-50%)}40%,80%{transform:translate(calc(-50% + 6px),-50%)}}
+.tray{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.piece{min-height:58px;border-radius:14px;border:2px solid var(--line);background:#fff;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 4px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;transition:transform .12s}
+.piece svg{width:26px;height:26px}
+.piece.sel{border:3px solid var(--sky);background:#EAF2FD;box-shadow:0 6px 0 var(--sky);transform:translateY(-4px)}
+.piece.used{opacity:.25;pointer-events:none;box-shadow:none}
+.piece.nope{opacity:.4;text-decoration:line-through;pointer-events:none;box-shadow:none}
+.trayhead{display:flex;justify-content:space-between;font-size:14px;font-weight:900;color:var(--muted)}
+.trayhead b{color:var(--green)}
+.win{background:var(--green);color:#fff;border-radius:18px;padding:12px 16px;text-align:center}
+.win h2{margin:0;font-family:'Fredoka',sans-serif;font-size:32px}
+.win p{margin:2px 0 0;font-size:15px;color:#E3F6E6}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;font-weight:900;margin-top:6px}
+.chain span{padding:5px 10px;border-radius:999px}
+.chain em{font-style:normal;color:#9AA3CC}
+#spark{opacity:0}
+#ball{transition:transform .7s cubic-bezier(.5,0,.6,1.4)}
+.muscle{transition:fill .5s}
+.hide{display:none!important}
+
+/* level 2 */
+.jbox{position:relative;border-radius:22px;overflow:hidden;background:#FFF8F2;border:3px solid #1F3A68}
+.jbox svg{display:block;width:100%;height:auto}
+.ves{position:absolute;transform:translate(-50%,-50%) scale(.6);width:15%;aspect-ratio:1;border-radius:50%;border:3px solid #2191FB;background:radial-gradient(circle at 40% 40%,#fff 0 45%,#CFE6FF 46% 100%);opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+.ves.live{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);box-shadow:0 0 0 6px rgba(33,145,251,.25);animation:glow .7s ease-in-out infinite alternate}
+.ves.pop{opacity:0;transform:translate(-50%,-50%) scale(1.6);pointer-events:none}
+.ves::after{content:"";position:absolute;inset:30%;border-radius:50%;background:radial-gradient(circle,#E8611A 0 30%,transparent 32%) 20% 30%/50% 50% no-repeat,radial-gradient(circle,#E8611A 0 30%,transparent 32%) 70% 70%/50% 50% no-repeat}
+@keyframes glow{to{box-shadow:0 0 0 12px rgba(33,145,251,.08)}}
+.key{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;transition:left .55s cubic-bezier(.3,.7,.4,1),top .55s cubic-bezier(.3,.7,.4,1),transform .55s;pointer-events:none}
+.meter{height:18px;border-radius:999px;background:#E3E8F3;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--green);border-radius:999px;transition:width .3s}
+.overlay{position:absolute;inset:0;background:rgba(244,248,255,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;text-align:center}
+.overlay h3{margin:0;font-family:'Fredoka',sans-serif;font-size:26px;color:var(--navy)}
+.overlay p{margin:0;font-size:15px;color:var(--muted)}
+.overlay .big{max-width:240px;font-size:22px;min-height:54px}
+
+/* badge */
+.badge{background:var(--navy);color:#fff;border-radius:26px;padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}
+.stats div{background:#1A2A9C;border-radius:14px;padding:10px 6px}
+.stats b{display:block;font-family:'Fredoka',sans-serif;font-size:24px;color:var(--gold)}
+.stats span{font-size:12px;color:#C7D6FF}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- START -->
+<section class="screen on" id="s-start" aria-labelledby="t-start">
+<div style="text-align:center;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)">Neuro-Muscular Labs</div>
+<h1 id="t-start" class="f" style="margin:0;text-align:center;font-size:52px;line-height:.98;color:var(--navy)">Make It<br><span style="color:var(--sky)">Move!</span></h1>
+<p style="margin:0;text-align:center;font-size:17px;color:var(--muted)">Connect the circuit from brain to muscle so the hand can catch the ball.</p>
+<svg viewBox="0 0 358 300" role="img" aria-label="A person reaching an open hand toward a falling ball" style="width:100%;height:auto">
+<path d="M18 330V150c0-26 18-40 42-40s42 14 42 40v180z" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/><rect x="48" y="90" width="24" height="26" fill="#F5D0B0"/>
+<circle cx="60" cy="58" r="40" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/><ellipse cx="60" cy="48" rx="27" ry="21" fill="#F7A6B0" stroke="#C8363F" stroke-width="2.5"/>
+<rect x="88" y="124" width="132" height="44" rx="22" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/><rect x="198" y="130" width="112" height="36" rx="18" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/>
+<g fill="#F5D0B0" stroke="#D9A07A" stroke-width="2.5"><rect x="300" y="100" width="11" height="40" rx="5.5"/><rect x="313" y="94" width="11" height="46" rx="5.5"/><rect x="326" y="98" width="11" height="42" rx="5.5"/><rect x="339" y="106" width="10" height="34" rx="5"/></g>
+<ellipse cx="322" cy="148" rx="26" ry="22" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/>
+<g fill="#E06B7A" stroke="#A8283C" stroke-width="2" opacity=".9"><ellipse cx="152" cy="140" rx="48" ry="12"/><ellipse cx="252" cy="146" rx="38" ry="11"/></g>
+<path d="M60 72V320" stroke="#8A6500" stroke-width="9" stroke-linecap="round"/><path d="M60 72V320" stroke="#FFC93C" stroke-width="5" stroke-linecap="round"/>
+<path d="M60 140C80 140 96 152 120 154L232 156L290 150" fill="none" stroke="#8A6500" stroke-width="7" stroke-linecap="round"/><path d="M60 140C80 140 96 152 120 154L232 156L290 150" fill="none" stroke="#FFC93C" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="322" cy="40" r="20" fill="#FF8A3D" stroke="#C2410C" stroke-width="3"/><path d="M304 34c10 6 26 6 36 0M310 54c6-10 18-10 24 0" fill="none" stroke="#C2410C" stroke-width="2"/>
+</svg>
+<div style="display:flex;gap:8px">
+<div class="card" style="flex:1;text-align:center;padding:10px"><div class="f" style="font-size:19px;color:var(--blue)">1 · Build</div><div style="font-size:13px;color:var(--muted)">the circuit</div></div>
+<div class="card" style="flex:1;text-align:center;padding:10px"><div class="f" style="font-size:19px;color:var(--blue)">2 · Fire</div><div style="font-size:13px;color:var(--muted)">the junction</div></div>
+</div>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:8px;align-items:center">
+<button class="big" id="b-play" type="button">Play</button>
+<div style="font-size:13px;font-weight:800;color:#5A5F7A">About 1 minute · Just tap</div>
+</div>
+</section>
+
+<!-- LEVEL 1 -->
+<section class="screen" id="s-build" aria-labelledby="t-build">
+<div class="topbar"><div class="lvl">Level 1 of 2</div><div class="dots"><i class="now"></i><i></i></div><div class="clock" id="c1">0:00</div></div>
+<div class="card" id="build-card"><h2 id="t-build">Build the circuit</h2><p>Tap a piece, then tap the spot where it goes. Use the clues!</p></div>
+<div class="win hide" id="build-win"><h2>It moved!</h2><p>The signal reached the muscle and the hand caught the ball.</p></div>
+<div class="scene" id="scene">
+<svg viewBox="0 0 358 310" role="img" aria-label="A body with empty spots along the path from the brain to the arm muscle">
+<path d="M18 330V150c0-26 18-40 42-40s42 14 42 40v180z" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/><rect x="48" y="90" width="24" height="26" fill="#F5D0B0"/>
+<circle cx="60" cy="58" r="40" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/>
+<ellipse id="brain" cx="60" cy="48" rx="27" ry="21" fill="#F3D3D8" stroke="#D8A3AC" stroke-width="2.5" style="transition:fill .4s"/>
+<rect x="88" y="124" width="132" height="44" rx="22" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/><rect x="198" y="130" width="112" height="36" rx="18" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/>
+<g id="handOpen"><g fill="#F5D0B0" stroke="#D9A07A" stroke-width="2.5"><rect x="300" y="100" width="11" height="40" rx="5.5"/><rect x="313" y="94" width="11" height="46" rx="5.5"/><rect x="326" y="98" width="11" height="42" rx="5.5"/><rect x="339" y="106" width="10" height="34" rx="5"/></g><ellipse cx="322" cy="148" rx="26" ry="22" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/></g>
+<g class="muscle" id="mus" fill="#F3D3D8" stroke="#D8A3AC" stroke-width="2"><ellipse class="muscle" cx="152" cy="140" rx="48" ry="12"/><ellipse class="muscle" cx="258" cy="146" rx="34" ry="11"/></g>
+<path id="cordDim" d="M60 72V320" stroke="#B9BFD3" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 9"/>
+<g id="cordLit" class="hide"><path d="M60 72V320" stroke="#8A6500" stroke-width="9" stroke-linecap="round"/><path d="M60 72V320" stroke="#FFC93C" stroke-width="5" stroke-linecap="round"/></g>
+<path id="nerveDim" d="M60 140C80 140 96 152 120 154L232 156L262 152" fill="none" stroke="#B9BFD3" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 9"/>
+<g id="nerveLit" class="hide"><path d="M60 140C80 140 96 152 120 154L232 156L262 152" fill="none" stroke="#8A6500" stroke-width="7" stroke-linecap="round"/><path d="M60 140C80 140 96 152 120 154L232 156L262 152" fill="none" stroke="#FFC93C" stroke-width="3.5" stroke-linecap="round"/></g>
+<circle id="jdot" class="hide" cx="262" cy="152" r="7" fill="#FFC93C" stroke="#8A6500" stroke-width="2"/>
+<g id="ball"><circle cx="322" cy="40" r="20" fill="#FF8A3D" stroke="#C2410C" stroke-width="3"/><path d="M304 34c10 6 26 6 36 0M310 54c6-10 18-10 24 0" fill="none" stroke="#C2410C" stroke-width="2"/></g>
+<g id="handClosed" class="hide"><path d="M300 118c0-6 5-10 11-8l4 2v34h-15z" fill="#F5D0B0" stroke="#D9A07A" stroke-width="2.5"/><rect x="298" y="136" width="50" height="34" rx="14" fill="#F5D0B0" stroke="#D9A07A" stroke-width="3"/><path d="M310 136v10M322 136v10M334 136v10" stroke="#D9A07A" stroke-width="2"/></g>
+<path id="route" d="M60 50V140C80 140 96 152 120 154L232 156L262 152" fill="none" stroke="none"/>
+<circle id="spark" r="8" fill="#FFFFFF" stroke="#FFC93C" stroke-width="4"/>
+</svg>
+<button class="slot" type="button" data-slot="brain" data-clue="the boss" style="left:16.8%;top:13%" aria-label="Empty spot, clue: the boss">? the boss</button>
+<button class="slot" type="button" data-slot="cord" data-clue="the highway" style="left:16.8%;top:38%" aria-label="Empty spot, clue: the highway">? the highway</button>
+<button class="slot" type="button" data-slot="nerve" data-clue="the wire" style="left:41.9%;top:49.7%" aria-label="Empty spot, clue: the wire">? the wire</button>
+<button class="slot" type="button" data-slot="junction" data-clue="the handoff" style="left:66.5%;top:62%" aria-label="Empty spot, clue: the handoff">? the handoff</button>
+<button class="slot" type="button" data-slot="muscle" data-clue="the mover" style="left:68.5%;top:32%" aria-label="Empty spot, clue: the mover">? the mover</button>
+</div>
+<div id="build-play">
+<div class="trayhead"><span>Pieces</span><b id="count">0 of 5 connected</b></div>
+<div class="tray" style="margin-top:8px">
+<button class="piece" type="button" data-piece="nerve"><svg viewBox="0 0 26 26"><path d="M3 13H23" stroke="#8A6500" stroke-width="6" stroke-linecap="round"/><path d="M3 13H23" stroke="#FFC93C" stroke-width="3" stroke-linecap="round"/></svg>Nerve</button>
+<button class="piece" type="button" data-piece="bone"><svg viewBox="0 0 26 26"><path d="M7 5a3 3 0 1 1 2 4l8 8a3 3 0 1 1-1 4 3 3 0 1 1-4-1L4 12a3 3 0 1 1 3-7z" fill="#F4EBD9" stroke="#CBB894" stroke-width="1.6"/></svg>Bone</button>
+<button class="piece" type="button" data-piece="muscle"><svg viewBox="0 0 26 26"><ellipse cx="13" cy="13" rx="11" ry="6" fill="#E06B7A" stroke="#A8283C" stroke-width="1.6"/></svg>Muscle</button>
+<button class="piece" type="button" data-piece="brain"><svg viewBox="0 0 26 26"><ellipse cx="13" cy="13" rx="11" ry="9" fill="#F7A6B0" stroke="#C8363F" stroke-width="1.6"/><path d="M13 5v16M8 9c2 2 2 4 0 6M18 9c-2 2-2 4 0 6" stroke="#C8363F" stroke-width="1.3" fill="none"/></svg>Brain</button>
+<button class="piece" type="button" data-piece="junction"><svg viewBox="0 0 26 26"><path d="M4 5h18c0 6-4 8-9 8S4 11 4 5z" fill="#FFE08A" stroke="#C98A00" stroke-width="1.6"/><g fill="#E8611A"><circle cx="9" cy="17" r="1.6"/><circle cx="13" cy="19" r="1.6"/><circle cx="17" cy="17" r="1.6"/></g><path d="M3 22h20" stroke="#C95A6E" stroke-width="3" stroke-linecap="round"/></svg>Junction</button>
+<button class="piece" type="button" data-piece="cord"><svg viewBox="0 0 26 26"><g fill="#F4F1EA" stroke="#A89F8C" stroke-width="1.2"><rect x="8" y="2" width="10" height="6" rx="2"/><rect x="8" y="10" width="10" height="6" rx="2"/><rect x="8" y="18" width="10" height="6" rx="2"/></g><path d="M13 2v22" stroke="#FFC93C" stroke-width="2.5"/></svg>Spinal cord</button>
+</div>
+</div>
+<div class="msg" id="msg1" aria-live="polite"></div>
+<div id="build-done" class="hide" style="display:flex;flex-direction:column;gap:10px">
+<div class="card"><div class="f" style="font-size:19px;color:var(--navy)">Your circuit</div>
+<div class="chain"><span style="background:#EAF2FD;color:#1560BD">Brain</span><em>→</em><span style="background:#EAF2FD;color:#1560BD">Spinal cord</span><em>→</em><span style="background:#FFF4D6;color:#8A6500">Nerve</span><em>→</em><span style="background:#E3F5F2;color:#0B6E64">Junction</span><em>→</em><span style="background:#FDEBF1;color:#A61E4D">Muscle</span></div>
+<p style="font-size:14px">Bones get pulled by muscles, but they don't carry signals.</p></div>
+<button class="big" type="button" id="b-next">Next level</button>
+</div>
+</section>
+
+<!-- LEVEL 2 -->
+<section class="screen" id="s-fire" aria-labelledby="t-fire">
+<div class="topbar"><div class="lvl">Level 2 of 2</div><div class="dots"><i class="done"></i><i class="now"></i></div><div class="clock" id="c2" style="color:var(--pink)">0:15</div></div>
+<div class="card"><h2 id="t-fire">Fire the junction</h2><p>Tap the glowing bubbles to release ACh keys. Unlock all 6 receptors before time runs out!</p></div>
+<div class="jbox" id="jbox">
+<svg viewBox="0 0 348 360" role="img" aria-label="Close-up of the junction. Bubbles in the nerve ending release keys that unlock receptors on the muscle.">
+<rect x="164" y="0" width="20" height="30" fill="#FFE08A" stroke="#C98A00" stroke-width="2.5"/>
+<path d="M150 26C82 30 50 64 50 110C50 134 62 148 80 154H268C286 148 298 134 298 110C298 64 266 30 198 26Z" fill="#FFE08A" stroke="#C98A00" stroke-width="3"/>
+<g fill="#FFF6DB" stroke="#E2B44A" stroke-width="2" stroke-dasharray="4 4"><circle cx="104" cy="96" r="18"/><circle cx="174" cy="72" r="18"/><circle cx="244" cy="96" r="18"/><circle cx="132" cy="132" r="15"/><circle cx="216" cy="132" r="15"/><circle cx="174" cy="114" r="15"/></g>
+<path d="M0 236H348V360H0Z" fill="#F4A9B5" stroke="#C95A6E" stroke-width="3"/>
+<g stroke="#D97B8C" stroke-width="2.5"><path d="M30 250v96M70 250v96M278 250v96M318 250v96"/></g>
+<g id="locks"></g>
+<text x="12" y="22" font-size="13" font-weight="900" fill="#8A6500">NERVE ENDING</text>
+<text x="12" y="200" font-size="13" font-weight="900" fill="#C2410C">THE GAP</text>
+<text x="174" y="306" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="20" font-weight="700" fill="#7A1626">Muscle fiber</text>
+<text x="174" y="330" text-anchor="middle" font-size="13" font-weight="800" fill="#7A1626">Receptor locks</text>
+</svg>
+<div id="vesicles"></div>
+<div class="overlay" id="fire-intro">
+<h3>Ready?</h3>
+<p>Bubbles will glow for a moment. Tap them fast!<br>Each one sends an ACh key across the gap.</p>
+<button class="big" type="button" id="b-fire">Start</button>
+</div>
+<div class="overlay hide" id="fire-end"></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div class="trayhead"><span>Muscle power</span><b id="count2">0 of 6 unlocked</b></div>
+<div class="meter"><i id="meter"></i></div>
+</div>
+<div class="card" style="display:flex;gap:10px;align-items:center;margin-top:auto">
+<svg width="46" height="46" viewBox="0 0 44 44" aria-hidden="true"><g id="mini" style="transform-origin:22px 26px;transition:transform .3s"><rect x="8" y="16" width="30" height="22" rx="10" fill="#F5D0B0" stroke="#D9A07A" stroke-width="2.5"/><path d="M8 20c0-4 2-8 6-8s4 4 4 8" fill="#F5D0B0" stroke="#D9A07A" stroke-width="2.5"/><path d="M18 16v8M26 16v8M32 18v6" stroke="#D9A07A" stroke-width="2"/></g></svg>
+<div style="font-size:14px;color:var(--muted)"><b style="color:var(--ink)" id="grip">Grip strength 0%</b><br>More unlocked receptors means a stronger squeeze.</div>
+</div>
+</section>
+
+<!-- BADGE -->
+<section class="screen" id="s-badge" aria-labelledby="t-badge">
+<div class="badge">
+<div style="font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#9CC8FF">You did it!</div>
+<svg width="170" height="180" viewBox="0 0 200 210" role="img" aria-label="Gold Circuit Master badge with three stars">
+<g fill="#FFC93C" stroke="#C98A00" stroke-width="2" stroke-linejoin="round"><path d="M50 30l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z"/><path d="M100 6l8 16 17 2.5-12 12 3 17-16-8-16 8 3-17-12-12 17-2.5z"/><path d="M150 30l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z"/></g>
+<path d="M60 150l-14 54 26-12 16 20 12-62z" fill="#2191FB"/><path d="M140 150l14 54-26-12-16 20-12-62z" fill="#1560BD"/>
+<circle cx="100" cy="128" r="56" fill="#FFC93C" stroke="#fff" stroke-width="6"/><circle cx="100" cy="128" r="44" fill="#FFD966" stroke="#C98A00" stroke-width="3"/><path d="M106 96l-24 38h16l-6 26 26-40h-17z" fill="#000080"/>
+</svg>
+<h2 id="t-badge" class="f" style="margin:0;font-size:42px;line-height:1">Circuit Master!</h2>
+<p style="margin:0;font-size:16px;color:#DCE6FF">You built the circuit and fired the junction. That's how every move you make begins!</p>
+<div class="stats"><div><b id="st-pts">200</b><span>points</span></div><div><b id="st-time">0:00</b><span>your time</span></div><div><b>2/2</b><span>levels</span></div></div>
+<div style="background:#fff;color:var(--ink);border-radius:14px;padding:10px 14px;font-size:14px;width:100%"><b>Show this screen at our table!</b></div>
+</div>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+<a class="big" href="https://www.n-mlabs.com/" style="display:flex;align-items:center;justify-content:center;text-decoration:none">Learn about our lab</a>
+<a class="ghost" href="index.html#junction">Back to the guide</a>
+<button class="ghost" type="button" id="b-again">Play again</button>
+</div>
+</section>
+
+</div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+function show(id){$$('.screen').forEach(function(s){s.classList.remove('on')});$('#'+id).classList.add('on');window.scrollTo(0,0)}
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+
+/* ---------- Level 1 ---------- */
+var COL={brain:'#1560BD',cord:'#1560BD',nerve:'#B07800',junction:'#0F8A7E',muscle:'#C2255C'};
+var NAME={brain:'Brain',cord:'Spinal cord',nerve:'Nerve',junction:'Junction',muscle:'Muscle'};
+var HINT={brain:'The boss sends every message.',cord:'The highway carries signals down from the brain.',nerve:'The wire runs out along the arm.',junction:'The handoff is where nerve meets muscle.',muscle:'The mover squeezes to pull the hand.'};
+var sel=null, placed={}, t1=0, t1Timer=null, t1Start=0;
+var msg1=$('#msg1');
+function say(el,text,kind){el.textContent=text;el.className='msg'+(kind?' '+kind:'')}
+function resetBuild(){
+  sel=null;placed={};
+  $$('.piece').forEach(function(p){p.classList.remove('sel','used','nope')});
+  $$('.slot').forEach(function(s){var k=s.dataset.slot;s.className='slot';s.style.background='';s.style.borderColor='';var c=s.dataset.clue;s.textContent='? '+c;s.setAttribute('aria-label','Empty spot, clue: '+c)});
+  ['cordLit','nerveLit','jdot','handClosed','build-win','build-done'].forEach(function(i){$('#'+i).classList.add('hide')});
+  ['cordDim','nerveDim','handOpen','build-card','build-play'].forEach(function(i){$('#'+i).classList.remove('hide')});
+  $('#brain').setAttribute('fill','#F3D3D8');$('#brain').setAttribute('stroke','#D8A3AC');
+  $('#mus').setAttribute('fill','#F3D3D8');$('#mus').setAttribute('stroke','#D8A3AC');
+  $('#ball').style.transform='';$('#spark').style.opacity=0;
+  $('#count').textContent='0 of 5 connected';say(msg1,'Start with the boss. Which piece sends the message?');
+}
+function startBuild(){resetBuild();show('s-build');t1Start=performance.now();clearInterval(t1Timer);t1Timer=setInterval(function(){t1=(performance.now()-t1Start)/1000;$('#c1').textContent=fmt(t1)},250)}
+$$('.piece').forEach(function(p){p.addEventListener('click',function(){
+  if(p.dataset.piece==='bone'){p.classList.add('nope');say(msg1,"Bones don't carry signals. Muscles pull on them!",'bad');if(sel){sel.classList.remove('sel');sel=null}return}
+  if(sel)sel.classList.remove('sel');
+  if(sel===p){sel=null;markReady();return}
+  sel=p;p.classList.add('sel');markReady();say(msg1,'Now tap the spot where '+NAME[p.dataset.piece]+' goes.');
+})});
+function markReady(){$$('.slot').forEach(function(s){s.classList.toggle('ready',!!sel&&!placed[s.dataset.slot])})}
+$$('.slot').forEach(function(s){s.addEventListener('click',function(){
+  var k=s.dataset.slot;if(placed[k])return;
+  if(!sel){say(msg1,'Pick a piece first, then tap a spot.');return}
+  var piece=sel.dataset.piece;
+  if(piece!==k){s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');say(msg1,'Not quite! '+HINT[k],'bad');return}
+  placed[k]=true;sel.classList.remove('sel');sel.classList.add('used');sel=null;
+  s.className='slot filled';s.style.background=COL[k];s.style.borderColor=COL[k];s.textContent=NAME[k]+' ✓';s.setAttribute('aria-label',NAME[k]+' connected');
+  if(k==='brain'){$('#brain').setAttribute('fill','#F7A6B0');$('#brain').setAttribute('stroke','#C8363F')}
+  if(k==='cord'){$('#cordDim').classList.add('hide');$('#cordLit').classList.remove('hide')}
+  if(k==='nerve'){$('#nerveDim').classList.add('hide');$('#nerveLit').classList.remove('hide')}
+  if(k==='junction'){$('#jdot').classList.remove('hide')}
+  if(k==='muscle'){$('#mus').setAttribute('fill','#E06B7A');$('#mus').setAttribute('stroke','#A8283C')}
+  var n=Object.keys(placed).length;$('#count').textContent=n+' of 5 connected';markReady();
+  if(n<5){say(msg1,'Nice! '+(5-n)+' to go.','good')}else{finishBuild()}
+})});
+function finishBuild(){
+  clearInterval(t1Timer);t1=(performance.now()-t1Start)/1000;
+  say(msg1,'Circuit complete! Watch the signal go...','good');
+  $$('.piece').forEach(function(p){p.classList.add('used')});
+  var path=$('#route'),len=path.getTotalLength(),sp=$('#spark'),t0=null,dur=1300;
+  sp.style.opacity=1;
+  function step(ts){if(!t0)t0=ts;var f=Math.min(1,(ts-t0)/dur),pt=path.getPointAtLength(f*len);sp.setAttribute('cx',pt.x);sp.setAttribute('cy',pt.y);
+    if(f<1)requestAnimationFrame(step);else{sp.style.opacity=0;$('#mus').setAttribute('fill','#C8364A');$('#ball').style.transform='translateY(82px)';
+      setTimeout(function(){$('#handOpen').classList.add('hide');$('#handClosed').classList.remove('hide');
+        $('#build-card').classList.add('hide');$('#build-win').classList.remove('hide');$('#build-play').classList.add('hide');$('#build-done').classList.remove('hide');say(msg1,'')},650)}}
+  requestAnimationFrame(step);
+}
+$('#b-next').addEventListener('click',startFire);
+
+/* ---------- Level 2 ---------- */
+var VES=[[104,96],[174,72],[244,96],[132,132],[216,132],[174,114]];
+var LOCKX=[49,99,149,199,249,299], LOCKY=228, W=348, H=360, TOTAL=15;
+var unlocked=0,left=TOTAL,fireTimer=null,spawnTimer=null,playing=false,t2Used=0;
+var vbox=$('#vesicles'),jbox=$('#jbox');
+VES.forEach(function(v,i){var b=document.createElement('button');b.type='button';b.className='ves';b.setAttribute('aria-label','Glowing bubble');b.style.left=(v[0]/W*100)+'%';b.style.top=(v[1]/H*100)+'%';b.addEventListener('click',function(){tapVes(b,v)});vbox.appendChild(b)});
+var LOCK_LOCKED='<rect x="-14" y="0" width="28" height="22" rx="5" fill="#1F3A68" stroke="#0E1F3D" stroke-width="2"/><path d="M-8 0v-10a8 8 0 0 1 16 0v10" fill="none" stroke="#0E1F3D" stroke-width="3"/><circle cx="0" cy="10" r="3.5" fill="#fff"/>';
+var LOCK_OPEN='<rect x="-14" y="0" width="28" height="22" rx="5" fill="#2F9E44" stroke="#1B5E2A" stroke-width="2"/><path d="M-8 0v-8a8 8 0 0 1 16 0" fill="none" stroke="#1B5E2A" stroke-width="3"/><path d="M-5 11l4 4 7-8" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+var KEY='<svg viewBox="-12 -12 36 24" width="30" height="30"><circle cx="0" cy="0" r="7" fill="#E8611A" stroke="#9A3412" stroke-width="1.5"/><rect x="5" y="-2.5" width="16" height="5" rx="2" fill="#E8611A" stroke="#9A3412" stroke-width="1.5"/><rect x="15" y="2" width="4" height="5" fill="#E8611A"/></svg>';
+function drawLocks(){$('#locks').innerHTML=LOCKX.map(function(x,i){return '<g transform="translate('+x+' '+(LOCKY-6)+')">'+(i<unlocked?LOCK_OPEN:LOCK_LOCKED)+'</g>'}).join('')}
+function updateMeter(){var p=Math.round(unlocked/6*100);$('#meter').style.width=p+'%';$('#count2').textContent=unlocked+' of 6 unlocked';$('#grip').textContent='Grip strength '+p+'%';$('#mini').style.transform='scale('+(1-unlocked*0.04)+','+(1-unlocked*0.03)+')'}
+function resetFire(){unlocked=0;left=TOTAL;playing=false;drawLocks();updateMeter();$('#c2').textContent=fmt(left);$$('.ves').forEach(function(b){b.className='ves'});$$('.key').forEach(function(k){k.remove()});$('#fire-end').classList.add('hide');$('#fire-intro').classList.remove('hide')}
+function startFire(){resetFire();show('s-fire')}
+$('#b-fire').addEventListener('click',function(){
+  $('#fire-intro').classList.add('hide');playing=true;var start=performance.now();
+  fireTimer=setInterval(function(){left=TOTAL-(performance.now()-start)/1000;$('#c2').textContent=fmt(Math.ceil(left));if(left<=0)endFire(false)},200);
+  spawn();spawnTimer=setInterval(spawn,850);
+});
+function spawn(){if(!playing)return;var idle=$$('.ves').filter(function(b){return !b.classList.contains('live')});if(!idle.length)return;var b=idle[Math.floor(Math.random()*idle.length)];b.className='ves live';clearTimeout(b._t);b._t=setTimeout(function(){if(b.classList.contains('live'))b.className='ves'},1500)}
+function tapVes(b,v){if(!playing||!b.classList.contains('live'))return;b.className='ves pop';setTimeout(function(){b.className='ves'},250);
+  if(unlocked>=6)return;var target=unlocked;unlocked++;
+  var k=document.createElement('div');k.className='key';k.innerHTML=KEY;k.style.left=(v[0]/W*100)+'%';k.style.top=(v[1]/H*100)+'%';jbox.appendChild(k);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){k.style.left=(LOCKX[target]/W*100)+'%';k.style.top=((LOCKY+2)/H*100)+'%';k.style.transform='rotate(90deg) scale(.8)'})});
+  setTimeout(function(){k.remove();drawLocks();updateMeter();if(unlocked>=6)endFire(true)},560);
+}
+function endFire(won){if(!playing)return;playing=false;clearInterval(fireTimer);clearInterval(spawnTimer);$$('.ves').forEach(function(b){b.className='ves'});
+  t2Used=TOTAL-Math.max(0,left);var e=$('#fire-end');e.classList.remove('hide');
+  if(won){e.innerHTML='<h3>Full squeeze!</h3><p>All 6 receptors unlocked. The muscle contracts with full power.</p><button class="big" type="button" id="b-finish">Finish</button>';
+    $('#b-finish').addEventListener('click',function(){var pts=200+Math.max(0,Math.round(left))*10;$('#st-pts').textContent=pts;$('#st-time').textContent=fmt(t1+t2Used);show('s-badge')})}
+  else{e.innerHTML='<h3>So close!</h3><p>You unlocked '+unlocked+' of 6. The enzyme cleans up ACh fast, so speed matters!</p><button class="big" type="button" id="b-retry">Try again</button>';
+    $('#b-retry').addEventListener('click',function(){resetFire()})}
+}
+
+$('#b-play').addEventListener('click',startBuild);
+$('#b-again').addEventListener('click',function(){show('s-start')});
+drawLocks();
+})();
+</script>
+</body>
+</html>
